@@ -21,7 +21,7 @@ namespace PDFIMG.Windows
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         public string GetPath()
@@ -50,13 +50,22 @@ namespace PDFIMG.Windows
                         , drawBrush
                         , drawPoint);
                 }
-                b.Save(@"D:\txt2.png");
+                var sFlDlg = new SaveFileDialog()
+                { Filter = "png files (*.png)|*.png|All files (*.*)|*.*" };
+                var DLG = sFlDlg.ShowDialog();
+                var PATH = "";
+                if (DLG == DialogResult.OK)
+                {
+                    PATH = sFlDlg.FileName;
+                    b.Save(PATH);
+                    MessageBox.Show("success");
+                }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var txt=Extens.pdfText(textBox1.Text);
+            var txt = Extens.pdfText(textBox1.Text);
             CreateIMG(txt);
         }
 
